@@ -135,24 +135,6 @@ textarea {
   vertical-align: middle;
 }
 
-.spinner {
-  width: 40px;
-  height: 40px;
-  margin: 100px auto;
-  background-color: $c-primary;
-
-  border-radius: 100%;
-  animation: sk-scaleout 1.0s infinite ease-in-out;
-}
-
-@keyframes sk-scaleout {
-  0% {
-    transform: scale(0);
-  } 100% {
-      transform: scale(1.0);
-      opacity: 0;
-    }
-}
 
 .broken-image {
   padding: $gutter/3;
@@ -164,4 +146,21 @@ textarea {
     display: block;
     margin-bottom: $gutter/3;
   }
+}
+
+.notification {
+  position: fixed;
+  width: 200px;
+  height: 90px;
+  opacity: 0.8;
+  z-index: 100;
+  background: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  color: rgb(70, 185, 131);
+  border-bottom: 4px solid rgb(70, 185, 131);
+  border-radius: 2px;
+  box-shadow: 0 15px 30px 0 rgba(0,0,0,0.11), 0 5px 15px 0 rgba(0,0,0,0.08);
 }

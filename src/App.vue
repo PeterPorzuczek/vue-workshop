@@ -1,20 +1,22 @@
 <template>
   <div id="app">
-    <Navbar class="container" />
+    <notify />
 
-    <div class="container">
-      <router-view></router-view>
-    </div>
+    <navbar />
+
+    <router-view />
 
   </div>
 </template>
 
 <script>
-  import Navbar from '/src/components/Navbar';
+  import Navbar from './components/Navbar'
+  import Notify from './components/Notify'
 
   export default {
     components: {
-      Navbar
+      Navbar,
+      Notify
     }
   }
 </script>

@@ -1,13 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Navbar matches snapshot 1`] = `
-<nav class="navbar"><a class="navbar--brand">
-    Vue.js (work)shop
-  </a>
+exports[`Navbar to match snapshot 1`] = `
+<nav class="navbar container"><a class="navbar--brand">Vue.js (work)shop</a>
   <ul class="navbar--menu">
-    <li class="active"><a href="#">Somewhere</a></li>
-    <li class="active"><a href="#">Over</a></li>
-    <li class="active"><a href="#">The rainbow</a></li>
+    <li class="active"><a>Somewhere</a></li>
+    <li class="active"><a>Over</a></li>
+    <li class="active"><a>The rainbow</a></li>
   </ul>
 </nav>
 `;

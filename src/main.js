@@ -1,53 +1,34 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router';
-import Vuelidate from 'vuelidate';
-import { sync } from 'vuex-router-sync';
-import store from '/src/store';
+import Vuelidate from 'vuelidate'
+import VueRouter from 'vue-router'
+import Vuex from 'vuex'
+
+import { sync } from 'vuex-router-sync'
+
+import router from './router'
+import store from './store'
+
 import App from '/src/App.vue'
-import ProductsList from '/src/components/ProductsList';
-import ProductDetails from '/src/components/ProductDetails';
-import ProductForm from '/src/components/ProductForm';
-import asCurrency from '/src/filters/asCurrency';
+import asCurrency from "/src/filters/asCurrency";
+import styleWhenBroken from "/src/directives/styleWhenBroken";
+import notifyMixin from "/src/mixins/notifyMixin";
 
 Vue.config.productionTip = false
 
-Vue.use(Vuelidate);
-Vue.use(VueRouter);
+Vue.filter("asCurrency", asCurrency)
 
-Vue.filter("asCurrency", asCurrency);
+Vue.directive('style-when-broken', styleWhenBroken)
 
-Vue.directive(
-  "style-when-broken", function (el) {
-    if (!el.onerror) {
-      el.classList.remove("broken-image");
-      el.onerror = () => {
-        el.classList.add("broken-image");
-      };
-    }
-  }
-);
+Vue.mixin(notifyMixin)
 
-const router = new VueRouter({
-  routes: [
-    {
-      path: '/',
-      component: ProductsList
-    },
-    {
-      path: '/product/:productId',
-      component: ProductDetails,
-    },
-    {
-      path: '/product/:productId/edit',
-      component: ProductForm,
-    }
-  ]
-});
+Vue.use(Vuelidate)
+Vue.use(VueRouter)
+Vue.use(Vuex)
 
-sync(store, router);
+sync(store, router)
 
 new Vue({
 	render: h => h(App),
 	router,
-	store
-}).$mount('#app');
+	store,
+}).$mount('#app')

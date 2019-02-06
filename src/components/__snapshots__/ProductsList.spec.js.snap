@@ -2,16 +2,18 @@
 
 exports[`ProductsList.vue should match snapshot 1`] = `
 <div>
-  <p><a class="btn" style="display: none;">Previous page</a>
+  <section class="container"><a class="btn" style="display: none;">Previous page</a>
     1
-    <a class="btn">Next page</a></p>
-  <div class="container">
+    <a class="btn">Next page</a></section>
+  <div></div>
+  <section>
     <ul class="product-list">
-      <products-list-item-stub product="[object Object]"></products-list-item-stub>
-      <products-list-item-stub product="[object Object]"></products-list-item-stub>
-      <products-list-item-stub product="[object Object]"></products-list-item-stub>
-      <products-list-item-stub product="[object Object]"></products-list-item-stub>
+      <product-list-item-stub product="[object Object]" index="0"></product-list-item-stub>
+      <product-list-item-stub product="[object Object]" index="1"></product-list-item-stub>
+      <product-list-item-stub product="[object Object]" index="2"></product-list-item-stub>
+      <product-list-item-stub product="[object Object]" index="3"></product-list-item-stub>
     </ul>
-  </div>
+  </section>
+  <!---->
 </div>
 `;

@@ -1,78 +1,74 @@
 <template>
-  <div>
-    <p v-show="!productsStatus.loading && !(isFirstPage && isLastPage)">
-      <router-link :to="{ path: '/', query: { page: page - 1 } }" v-show="!isFirstPage" class="btn">Previous page</router-link>
-      {{ page }}
-      <router-link :to="{ path: '/', query: { page: page + 1 } }" v-show="!isLastPage" class="btn">Next page</router-link>
-    </p>
+    <div>
+        <section class="container" v-if="!productStatus.loading">
+            <router-link class="btn" :to="{ path: '/', query: { page: page - 1 } }" v-show="!isFirstPage">Previous page</router-link>
+            {{ page }}
+            <router-link class="btn" :to="{ path: '/', query: { page: page + 1 } }" v-show="!isLastPage">Next page</router-link>
+        </section>
 
-    <LoadingStatus :isLoading="productsStatus.loading" :isError="productsStatus.error">
-      <ul v-if="products.length" class="product-list">
-        <ProductsListItem
-          v-for="product in products"
-          :key="product.id"
-          :product="product"/>
-      </ul>
-      <p v-else>No products to be shown. Try a different page.</p>
-    </LoadingStatus>
-  </div>
+        <loading-status :is-loading="productStatus.loading" :is-error="productStatus.error"/>
+
+        <section v-show="!productStatus.loading">
+            <ul class="product-list">
+                <product-list-item v-for="(product, index) in products" :product="product" :index="index" :key="`product-${index}`"/>
+            </ul>
+        </section>
+
+        <div v-if="isLastPage">
+            You have reached the end
+        </div>
+    </div>
 </template>
 
 <script>
-  import {mapActions, mapGetters} from 'vuex';
-  import LoadingStatus from "/src/components/LoadingStatus";
-  import ProductsListItem from "/src/components/ProductsListItem";
+    import { mapGetters, mapActions } from 'vuex'
+    import LoadingStatus from './LoadingStatus'
+    import ProductListItem from './ProductsListItem'
 
-  export default {
-    data() {
-      return {
-        isLoading: true
-      }
-    },
-    created() {
-      this.fetchProducts();
-    },
-    computed: {
-      isFirstPage() {
-        return this.page === 1;
-      },
-      isLastPage() {
-        return this.products.length === 0;
-      },
-      ...mapGetters({
-        page: "currentPageNumber"
-      }),
-      ...mapGetters([
-        "products",
-        "productsStatus"
-      ])
-    },
-    methods: {
-      ...mapActions(["fetchProducts"])
-    },
-    watch: {
-      page() {
-        this.fetchProducts();
-      }
-    },
-    components: {
-      ProductsListItem,
-      LoadingStatus
+    export default {
+        name: "ProductsList",
+        components: {
+            ProductListItem,
+            LoadingStatus
+        },
+        watch: {
+            page: {
+                immediate: true,
+                handler () {
+                    this.fetchProducts()
+                }
+            }
+        },
+        computed: {
+            isFirstPage () {
+                return this.page === 1
+            },
+            isLastPage () {
+                return this.products.length === 0
+            },
+            ...mapGetters(["products"]),
+            ...mapGetters(["productStatus"]),
+            ...mapGetters({
+                page: "currentPageNumber"
+            }),
+        },
+        methods:{
+            ...mapActions(["fetchProducts"])
+        }
     }
-  }
 </script>
 
-<style lang="scss" scoped>
-  .product-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 0 (-$gutter);
-    display: flex;
-    flex-wrap: wrap;
+<style scoped lang="scss">
+    .product-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 0 (-$gutter);
+        display: flex;
+        flex-wrap: wrap;
 
-    /deep/ &--product {
-      $inRow: 4;
-      flex-basis: calc(#{100%/$inRow} - #{$gutter});
+        /deep/ &--product {
+            $inRow: 4;
+            flex-basis: calc(#{100%/$inRow} - #{$gutter});
+        }
     }
-  }
 </style>

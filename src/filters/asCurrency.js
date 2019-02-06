@@ -1,1 +1,3 @@
-export default (price) => '$' + (+price).toFixed(2);
+const asCurrency = price => `$${Number(price).toFixed(2)}`
+
+export default asCurrency

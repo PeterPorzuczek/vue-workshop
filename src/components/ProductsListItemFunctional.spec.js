@@ -1,11 +1,13 @@
-import ProductsListItem from '/src/components/ProductsListItem.vue';
+import ProductsListItem from '/src/components/ProductsListItemFunctional.vue';
 import mockProduct from '/src/test/mockProduct';
 import {mount, RouterLinkStub} from '@vue/test-utils';
 
 function instantiateWithProduct(partialProduct) {
     return mount(ProductsListItem, {
-        propsData: {
-            product: {...mockProduct, ...partialProduct}
+        context: {
+            props: {
+                product: { ...mockProduct, ...partialProduct }
+            }
         },
         stubs: {
             RouterLink: RouterLinkStub
